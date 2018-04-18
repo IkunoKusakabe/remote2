@@ -17,6 +17,15 @@ if test $# -le 3; then
 fi
 
 function main {
+	echo $1
+	echo $2
+
+	for i in `seq 3 $#`
+	do
+		echo $3
+		shift
+	done
+
 	# 差分のベースとなるブランチ
 	DEV=develop
 
@@ -173,7 +182,5 @@ do
 	TESTS=$TESTS$3" "
 	shift
 done
-
-echo ${WORKSPACE}
 
 main $1 $2 $TESTS
