@@ -174,4 +174,6 @@ do
 	shift
 done
 
+echo ${WORKSPACE}
+
 main $1 $2 $TESTS
