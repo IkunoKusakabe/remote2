@@ -13,6 +13,13 @@ function finally {
 }
 
 
+# 引数チェック
+if test $# -le 3; then
+  echo "ARGUMENT IS LACK."
+  echo "PLEASE INPUT MORE THAN $# ARGUMENTS."
+  exit 1
+fi
+
 # 差分のベースとなるブランチ
 DEV=develop
 
@@ -45,13 +52,6 @@ Layout
 CustomObject
 Workflow
 "
-
-# 引数チェック
-if test $# -le 3; then
-  echo "ARGUMENT IS LACK."
-  echo "PLEASE INPUT MORE THAN $# ARGUMENTS."
-  exit 1
-fi
 
 # developをチェックアウト
 git checkout -b ${DEV} origin/${DEV}
