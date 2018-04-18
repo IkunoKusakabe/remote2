@@ -183,4 +183,8 @@ do
 	shift
 done
 
+echo "AFTER ROOP"
+echo $1
+echo $2
+
 main $1 $2 $TESTS
