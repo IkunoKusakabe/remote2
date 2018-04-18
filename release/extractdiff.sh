@@ -166,7 +166,7 @@ function main {
 
 for i in `seq 3 $#`
 do
-	TESTS=$TESTS$3
+	TESTS=$TESTS" "$3
 	shift
 done
 
