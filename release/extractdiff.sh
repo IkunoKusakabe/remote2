@@ -169,8 +169,8 @@ echo $2
 
 for i in `seq 3 $#`
 do
-	echo$3
-	TESTS=$TESTS" "$3
+	echo $3
+	TESTS=$TESTS$3" "
 	shift
 done
 
