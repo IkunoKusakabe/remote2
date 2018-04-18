@@ -3,13 +3,9 @@
 set -eu
 
 trap catch ERR
-trap finally EXIT
 
 function catch {
     echo "!!!CATCH!!!"
-}
-function finally {
-    echo "!!!FINALLY!!!"
 }
 
 
@@ -32,9 +28,8 @@ function main {
 	DEPLOY_ROOT=../salesforce_deploy/
 
 	# 引数
-	BRANCH_NAME=$1
-	SANDBOX_NAME=$2
-	TESTS=$3
+	BRANCH_NAME=${1}
+	SANDBOX_NAME=${2}
 	# 変数定義
 	PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
 	DIFFFILE=diff.txt
