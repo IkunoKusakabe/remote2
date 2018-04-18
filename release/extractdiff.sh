@@ -28,8 +28,8 @@ function main {
 	DEPLOY_ROOT=../salesforce_deploy/
 
 	# 引数
-	BRANCH_NAME=${1}
-	SANDBOX_NAME=${2}
+	BRANCH_NAME=$1
+	SANDBOX_NAME=$2
 	# 変数定義
 	PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
 	DIFFFILE=diff.txt
@@ -166,4 +166,9 @@ function main {
 	#done
 }
 
-main
+for i in `seq 3 $#`
+do
+	TESTS=$TESTS$3
+done
+
+main $1 $2 $TESTS
