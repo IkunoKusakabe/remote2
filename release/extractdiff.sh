@@ -51,7 +51,7 @@ function main {
 
 	# developをチェックアウト
 	git checkout -b ${DEV} origin/${DEV}
-	git checkout -t origin/${BRANCH_NAME}
+	git checkout -b origin/${BRANCH_NAME}
 	# コンフリクト確認したかったけど、↓だとリネームによるdelete？に対応できないっぽい
 	#git format-patch origin/${DEV} --stdout>test.patch
 	#git checkout ${DEV}
