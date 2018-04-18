@@ -1,3 +1,18 @@
+#!/bin/sh
+
+set -eu
+
+trap catch ERR
+trap finally EXIT
+
+function catch {
+    echo "!!!CATCH!!!"
+}
+function finally {
+    echo "!!!FINALLY!!!"
+}
+
+
 # 差分のベースとなるブランチ
 DEV=develop
 
