@@ -91,8 +91,6 @@ function main {
 	    META=`echo ${diff%-*}"-meta.xml"`
 	    mkdir -p ${CODEPKG}\\${DIR}
 	    cp ${diff} ${CODEPKG}\\${DIR}
-####テスト！
-	    cp /404 ${CODEPKG}\\${DIR}
 	    # 差分内にmeta.xmlがない場合はコピー
 	    if grep ${META} ${DIFFFILE} ;then
 	    	:
@@ -169,6 +167,7 @@ function main {
 for i in `seq 3 $#`
 do
 	TESTS=$TESTS$3
+	shift
 done
 
 main $1 $2 $TESTS
