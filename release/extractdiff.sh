@@ -25,7 +25,7 @@ function main {
 	PW=*PW*
 
 	# デプロイソース置き場
-	DEPLOY_ROOT=../salesforce_deploy/
+	DEPLOY_ROOT=${JENKINS_HOME}/workspace/salesforce_deploy/
 
 	# 引数
 	BRANCH_NAME=$1
