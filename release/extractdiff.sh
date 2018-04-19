@@ -16,37 +16,37 @@ if test $# -le 3; then
   exit 1
 fi
 
-	# 差分のベースとなるブランチ
-	DEV=develop
+# 差分のベースとなるブランチ
+DEV=develop
 
-	# SFJenkinsユーザ
-	USER=*user*
-	PW=*PW*
+# SFJenkinsユーザ
+USER=*user*
+PW=*PW*
 
-	# デプロイソース置き場
-	DEPLOY_ROOT=${JENKINS_HOME}/workspace/salesforce_deploy/
+# デプロイソース置き場
+DEPLOY_ROOT=${JENKINS_HOME}/workspace/salesforce_deploy/
 
-	# 引数
-	BRANCH_NAME=$1
-	SANDBOX_NAME=$2
-	# 変数定義
-	PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
-	DIFFFILE=diff.txt
-	CODEPKG='codepkg'
-	EXTRACT='false'
-	RENAME='false'
-	PYCONF=pyconf.ini
+# 引数
+BRANCH_NAME=$1
+SANDBOX_NAME=$2
+# 変数定義
+PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
+DIFFFILE=diff.txt
+CODEPKG='codepkg'
+EXTRACT='false'
+RENAME='false'
+PYCONF=pyconf.ini
 
-	# パッケージ
-	PACKAGES="ApexClass
-	ApexPage
-	ApexTrigger
-	ApexComponent
-	StaticResource
-	Layout
-	CustomObject
-	Workflow
-	"
+# パッケージ
+PACKAGES="ApexClass
+ApexPage
+ApexTrigger
+ApexComponent
+StaticResource
+Layout
+CustomObject
+Workflow
+"
 
 function main {
 	# developをチェックアウト
@@ -169,7 +169,12 @@ echo $2
 
 for i in `seq 3 $#`
 do
-	echo $3
+	echo "1= "$1
+	echo "2= "$2
+	echo "3= "$3
+	echo "4= "$4
+	echo "5= "$5
+	echo "6= "$6
 	TESTS=$TESTS$3" "
 	shift
 done
