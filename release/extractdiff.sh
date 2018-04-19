@@ -154,7 +154,7 @@ function main {
 	    echo "package"${COUNT}" = "${meta} >>${PYCONF}
 	done
 
-	 テストセクションを設定ファイルに出力
+	# テストセクションを設定ファイルに出力
 	COUNT=0
 	echo "[TESTLIST]" >>${PYCONF}
 	for test in ${TESTS}
