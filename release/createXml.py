@@ -11,7 +11,7 @@ import ConfigParser
 class XmlCreator:
 	# iniファイル読み込み(py2ver)
 	conf = ConfigParser.SafeConfigParser()
-	conf.read('../salesforce_deploy/pyconf.ini')
+	conf.read('../pyconf.ini')
 	# 出力先
 	BUILD_XML = 'buildToTest.xml'
 	PACKAGE_XML = 'package.xml'
