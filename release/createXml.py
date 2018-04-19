@@ -11,7 +11,7 @@ import ConfigParser
 class XmlCreator:
 	# iniファイル読み込み(py2ver)
 	conf = ConfigParser.SafeConfigParser()
-	conf.read('../pyconf.ini')
+	conf.read('C:/ProgramData/Jenkins/workspace/pyconf.ini')
 	# 出力先
 	BUILD_XML = 'buildToTest.xml'
 	PACKAGE_XML = 'package.xml'
