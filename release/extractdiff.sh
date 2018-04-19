@@ -16,16 +16,6 @@ if test $# -le 3; then
   exit 1
 fi
 
-function main {
-	echo $1
-	echo $2
-
-	for i in `seq 3 $#`
-	do
-		echo $3
-		shift
-	done
-
 	# 差分のベースとなるブランチ
 	DEV=develop
 
@@ -58,6 +48,7 @@ function main {
 	Workflow
 	"
 
+function main {
 	# developをチェックアウト
 	git checkout -b ${DEV} origin/${DEV}
 	git checkout -b ${BRANCH_NAME} origin/${BRANCH_NAME}
@@ -184,7 +175,6 @@ do
 done
 
 echo "AFTER ROOP"
-echo $1
-echo $2
+echo $TESTS
 
-main $1 $2 $TESTS
+main $TESTS
