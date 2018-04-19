@@ -27,8 +27,8 @@ PW=*PW*
 DEPLOY_ROOT=${JENKINS_HOME}/workspace/salesforce_deploy/
 
 # 引数
-BRANCH_NAME=$1
-SANDBOX_NAME=$2
+#BRANCH_NAME=$1
+#SANDBOX_NAME=$2
 # 変数定義
 PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
 DIFFFILE=diff.txt
@@ -135,15 +135,15 @@ function main {
 	} >>${PYCONF}
 
 	# テストセクションを設定ファイルに出力
-	COUNT=0
-	echo "[TESTLIST]" >>${PYCONF}
-	for testclass in `seq 3 $#`
-	do
-		COUNT=`expr ${COUNT} + 1`
-	    echo "test"${COUNT}" = "$3 >>${PYCONF}
+	#COUNT=0
+	#echo "[TESTLIST]" >>${PYCONF}
+	#for testclass in `seq 3 $#`
+	#do
+	#	COUNT=`expr ${COUNT} + 1`
+	#    echo "test"${COUNT}" = "$3 >>${PYCONF}
 	    # 引数を1つずつずらす
-	    shift
-	done
+	#    shift
+	#done
 
 	# packageセクションを設定ファイルに出力
 	COUNT=0
@@ -154,30 +154,14 @@ function main {
 	    echo "package"${COUNT}" = "${meta} >>${PYCONF}
 	done
 
-	# テストセクションを設定ファイルに出力
-	#COUNT=0
-	#echo "[TESTLIST]" >>${PYCONF}
-	#for test in ${TESTS}
-	#do
-	#	COUNT=`expr ${COUNT} + 1`
-	#    echo "test"${COUNT}" = "${test} >>${PYCONF}
-	#done
+	 テストセクションを設定ファイルに出力
+	COUNT=0
+	echo "[TESTLIST]" >>${PYCONF}
+	for test in ${TESTS}
+	do
+		COUNT=`expr ${COUNT} + 1`
+	    echo "test"${COUNT}" = "${test} >>${PYCONF}
+	done
 }
 
-echo $1
-echo $2
-
-for i in `seq 3 $#`
-do
-	echo "1= "$1
-	echo "2= "$2
-	echo "3= "$3
-	echo "TESTS= "$TESTS
-	TESTS=$TESTS$3" "
-	shift
-done
-
-echo "AFTER ROOP"
-echo $TESTS
-
-main $TESTS
+main
