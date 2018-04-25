@@ -103,7 +103,8 @@ function main {
 	{
 		echo "[PROJECT]"
 		echo "basedir = ."
-		echo "default = ToTestDeployCheckOnly"
+		echo "default = "
+#		echo "default = ToTestDeployCheckOnly"
 		echo "name = Test"
 		echo "xmlnssf = antlib:com.salesforce"
 
