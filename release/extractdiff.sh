@@ -5,7 +5,7 @@ set -eu
 trap catch ERR
 
 function catch {
-    echo "!!!CATCH!!!"
+    echo "ERROR CATCH"
 }
 
 
