@@ -33,6 +33,8 @@ class Xml_Creator:
 			for value in self.conf.items(section).values():
 				if not value and value.isspace():
 					self.empty_value_flag = True
+				else:
+					print('non-empty')
 
 		if self.empty_value_flag:
 			raise Exception('EMPTY VALUE IN PROPERTY FILE')
