@@ -31,7 +31,7 @@ class Xml_Creator:
 
 		for section in self.conf.sections():
 			print('SECTION : ' + section)
-			for value in dict(self.conf.items(section)).values():
+			for value in dict(self.conf.items(section)).keys():
 				if value and not value.isspace():
 					print('non-empty')
 					print(' ' + value)
