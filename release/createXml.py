@@ -20,7 +20,7 @@ class Xml_Creator:
 
 	## 実行
 	def execute(self):
-		
+		print('EXECUTE')
 		self._create_build_xml()
 		self._create_package_xml()
 		self._output_xml(self.project,self.BUILD_XML)
