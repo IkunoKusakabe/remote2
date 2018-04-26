@@ -103,8 +103,7 @@ function main {
 	{
 		echo "[PROJECT]"
 		echo "basedir = ."
-		echo "default = "
-#		echo "default = ToTestDeployCheckOnly"
+		echo "default = ToTestDeployCheckOnly"
 		echo "name = Test"
 		echo "xmlnssf = antlib:com.salesforce"
 
@@ -123,6 +122,7 @@ function main {
 		echo "[TARGETSF]"
 		echo "checkonly = True"
 		echo "deployroot = ${DEPLOY_ROOT}""codepkg"
+#		echo "maxPoll = 2000"
 		echo "maxPoll = 2000"
 		echo "password = ${PW}"
 		echo "serverurl = https://test.salesforce.com"
