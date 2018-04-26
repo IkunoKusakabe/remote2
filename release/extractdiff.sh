@@ -123,7 +123,7 @@ function main {
 		echo "checkonly = True"
 		echo "deployroot = ${DEPLOY_ROOT}""codepkg"
 #		echo "maxPoll = 2000"
-		echo "maxPoll = 2000"
+		echo "maxPoll = "
 		echo "password = ${PW}"
 		echo "serverurl = https://test.salesforce.com"
 		echo "testLevel = RunSpecifiedTests"
