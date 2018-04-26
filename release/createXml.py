@@ -20,7 +20,7 @@ class Xml_Creator:
 
 	## 実行
 	def execute(self):
-		
+		self._check_blank_value()
 		self._create_build_xml()
 		self._create_package_xml()
 		self._output_xml(self.project,self.BUILD_XML)
@@ -31,7 +31,7 @@ class Xml_Creator:
 
 		for section in self.conf.sections():
 			print('SECTION : ' + section)
-			for value in self.conf.items(section).values():
+			for value in dict(self.conf.items(section)).values():
 				print(' ' + value)
 				if not value and value.isspace():
 					self.empty_value_flag = True
