@@ -20,7 +20,7 @@ class Xml_Creator:
 
 	## 実行
 	def execute(self):
-		print('EXECUTE')
+		
 		self._create_build_xml()
 		self._create_package_xml()
 		self._output_xml(self.project,self.BUILD_XML)
@@ -30,14 +30,16 @@ class Xml_Creator:
 	def _check_blank_value(self):
 
 		for section in self.conf.sections():
+			print('SECTION : ' + section)
 			for value in self.conf.items(section).values():
+				print(' ' + value)
 				if not value and value.isspace():
 					self.empty_value_flag = True
 				else:
 					print('non-empty')
 
 		if self.empty_value_flag:
-			raise Exception('EMPTY VALUE IN PROPERTY FILE')
+			raise ValueError('EMPTY VALUE IN PROPERTY FILE')
 
 	## build.xmlの作成
 	def _create_build_xml(self):
