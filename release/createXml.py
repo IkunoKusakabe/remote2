@@ -9,21 +9,34 @@ import os
 import ConfigParser
 
 class Xml_Creator:
-	# iniファイル読み込み(py2ver)
+	# iniファイル読み込み(py2ver...)
 	conf = ConfigParser.SafeConfigParser()
 	conf.read('../salesforce_deploy/pyconf.ini')
 	# 出力先
 	BUILD_XML = 'buildToTest.xml'
 	PACKAGE_XML = 'package.xml'
+	# 不正な値がある場合True
+	empty_value_flag = False
 
 	## 実行
 	def execute(self):
 		
 		self._create_build_xml()
 		self._create_package_xml()
-		self._output_xml(self.project, self.BUILD_XML)
-		self._output_xml(self.package, self.PACKAGE_XML)
+		self._output_xml(self.project,self.BUILD_XML)
+		self._output_xml(self.package,self.PACKAGE_XML)
 	
+	## 設定値に空白がある場合は例外を投げる
+	def _check_blank_value(self):
+
+		for section in self.conf.sections():
+			for value in self.conf.items(section).values():
+				if not value and value.isspace():
+					self.empty_value_flag = True
+
+		if self.empty_value_flag:
+			raise Exception('EMPTY VALUE IN PROPERTY FILE')
+
 	## build.xmlの作成
 	def _create_build_xml(self):
 
@@ -35,30 +48,30 @@ class Xml_Creator:
 		self.project.set('xmlns:sf', self.conf.get('PROJECT','xmlnssf'))
 
 		# taskdefノード作成
-		taskdef = ET.SubElement(self.project, 'taskdef',
+		taskdef = ET.SubElement(self.project,'taskdef',
 								{'resource':self.conf.get('TASKDEF','resource'),
 								'classpath':self.conf.get('TASKDEF','classpath'),
 								'uri':self.conf.get('TASKDEF','uri')})
 
 		# targetノード作成(プロキシ設定)
-#		target1 = ET.SubElement(self.project, 'target')
-#		target1.set('name', self.conf.get('DEPENDS','name'))
+#		target1 = ET.SubElement(self.project,'target')
+#		target1.set('name',self.conf.get('DEPENDS','name'))
 
 		# setproxyノード作成
-#		setproxy = ET.SubElement(target1, 'setproxy',
+#		setproxy = ET.SubElement(target1,'setproxy',
 #								{'proxyhost':self.conf.get('DEPENDSSETPROXY','proxyhost'),
 #								'proxyport':self.conf.get('DEPENDSSETPROXY','proxyport'),
 #								'proxyuser':self.conf.get('DEPENDSSETPROXY','proxyuser'),
 #								'proxypassword':self.conf.get('DEPENDSSETPROXY','proxypassword')})
 
 		# targetノード作成(デプロイ)
-		target2 = ET.SubElement(self.project, 'target',
+		target2 = ET.SubElement(self.project,'target',
 								{'name':self.conf.get('TARGET','name')})
 #								{'name':self.conf.get('TARGET','name'),
 #								'depends':self.conf.get('TARGET','depends')})
 
 		# sf:deployノード作成
-		deploy = ET.SubElement(target2, 'sf:deploy',
+		deploy = ET.SubElement(target2,'sf:deploy',
 								{'username':self.conf.get('TARGETSF','username'),
 								'password':self.conf.get('TARGETSF','password'),
 								'serverurl':self.conf.get('TARGETSF','serverurl'),
@@ -68,7 +81,7 @@ class Xml_Creator:
 								'checkOnly':self.conf.get('TARGETSF','checkOnly')})
 
 		# テストクラスをファイルを読み込んで書き出す
-	#	with open(self.conf.get('TESTLIST', 'tests'), 'r') as f:
+	#	with open(self.conf.get('TESTLIST','tests'), 'r') as f:
 	#		for row in f:
 	#			test = ET.SubElement(deploy, 'runTest')
 				# strip=両端からスペース・タブ・改行を除去
@@ -84,7 +97,7 @@ class Xml_Creator:
 
 		# Packageノード作成
 		self.package = ET.Element('Package')
-		self.package.set('xmlns', self.conf.get('PACKAGE','xmlns'))
+		self.package.set('xmlns',self.conf.get('PACKAGE','xmlns'))
 
 		# メタデータをファイルを読み込んで書き出す
 	#	with open(self.conf.get('PACKAGELIST','packs'), 'r') as pack:
@@ -99,19 +112,19 @@ class Xml_Creator:
 	#			name.text = data.strip()
 			# セクションのkey = valのセットを辞書で取得しループ
 		for meta in dict(self.conf.items("PACKAGELIST")).values():
-			types = ET.SubElement(self.package, 'types')
-			members = ET.SubElement(types, 'members')
-			members.text = self.conf.get('PACKAGE', 'members')
-			name = ET.SubElement(types, 'name')
+			types = ET.SubElement(self.package,'types')
+			members = ET.SubElement(types,'members')
+			members.text = self.conf.get('PACKAGE','members')
+			name = ET.SubElement(types,'name')
 			name.text = meta.strip()
 
 		# versionノードを作成
-		version = ET.SubElement(self.package, 'version')
-		version.text = self.conf.get('PACKAGE', 'version')
+		version = ET.SubElement(self.package,'version')
+		version.text = self.conf.get('PACKAGE','version')
 	
 	## 渡されたxmlを解析し、インデントを追加して出力する
-	def _output_xml(self, xml, file):
-		string = unicode(ET.tostring(xml), 'utf-8')
+	def _output_xml(self,xml_name,file):
+		string = unicode(ET.tostring(xml_name), 'utf-8')
 		pretty_string = minidom.parseString(string).toprettyxml(indent='  ')
 		with open(file, 'w') as xml:
 			xml.write(pretty_string)
