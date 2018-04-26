@@ -32,12 +32,12 @@ class Xml_Creator:
 		for section in self.conf.sections():
 			print('SECTION : ' + section)
 			for value in dict(self.conf.items(section)).values():
-				print(' ' + value)
-				if not value and value.isspace():
+				if value and not value.isspace():
+					print('non-empty')
+					print(' ' + value)
+				else:
 					print('EMPTY!')
 					self.empty_value_flag = True
-				else:
-					print('non-empty')
 
 		if self.empty_value_flag:
 			raise ValueError('EMPTY VALUE IN PROPERTY FILE')
