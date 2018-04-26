@@ -33,7 +33,7 @@ class Xml_Creator:
 			print('SECTION : ' + section)
 			for key in dict(self.conf.items(section)).keys():
 				value = self.conf.get(section, key)
-				if value.isspace() and not value:
+				if not(value) and not value.isspace():
 					print(key + '\'s value is EMPTY!')
 					self.empty_value_flag = True
 
