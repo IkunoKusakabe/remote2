@@ -94,6 +94,7 @@ class Xml_Creator:
 		for row in dict(self._conf.items("TESTLIST")).values():
 			test = ET.SubElement(deploy, 'runTest')
 			# strip=両端からスペース・タブ・改行を除去
+#			test.text = row.strip()
 			test.text = row.strip()
 
 	## package.xmlの作成
