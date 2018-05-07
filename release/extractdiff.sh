@@ -110,7 +110,7 @@ function main {
 		echo "[TASKDEF]"
 		echo "classpath = /var/lib/jenkins/workspace/ant-salesforce.jar"
 		echo "resource = com/salesforce/antlib.xml"
-		echo "uri = antlib:com.salesforce"
+		echo "uri = antlib:com.salesforce  "
 
 		echo "[DEPENDS]"
 		echo "name = proxy"

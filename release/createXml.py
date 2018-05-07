@@ -10,8 +10,8 @@ import ConfigParser
 
 class Xml_Creator:
 	# 出力先
-	BUILD_XML = 'build.xml'
-	PACKAGE_XML = 'package.xml'
+	_BUILD_XML = 'build.xml'
+	_PACKAGE_XML = 'package.xml'
 
 	def __init__(self):
 		# iniファイル読み込み(py2ver)
@@ -25,8 +25,8 @@ class Xml_Creator:
 		self._check_blank_value()
 		self._create_build_xml()
 		self._create_package_xml()
-		self._output_xml(self.project,self.BUILD_XML)
-		self._output_xml(self.package,self.PACKAGE_XML)
+		self._output_xml(self.project,self._BUILD_XML)
+		self._output_xml(self.package,self._PACKAGE_XML)
 	
 	## 設定値に空白がある場合は例外を投げる
 	def _check_blank_value(self):
@@ -47,43 +47,43 @@ class Xml_Creator:
 
 		# projectノード作成
 		self.project = ET.Element('project')
-		self.project.set('basedir', self._conf.get('PROJECT','basedir').strip())
-		self.project.set('default', self._conf.get('TARGET','name').strip())
-		self.project.set('name', self._conf.get('PROJECT','name').strip())
-		self.project.set('xmlns:sf', self._conf.get('PROJECT','xmlnssf').strip())
+		self.project.set('basedir', self._conf.get('PROJECT','basedir'))
+		self.project.set('default', self._conf.get('TARGET','name'))
+		self.project.set('name', self._conf.get('PROJECT','name'))
+		self.project.set('xmlns:sf', self._conf.get('PROJECT','xmlnssf'))
 
 		# taskdefノード作成
 		taskdef = ET.SubElement(self.project,'taskdef',
-								{'resource':self._conf.get('TASKDEF','resource').strip(),
-								'classpath':self._conf.get('TASKDEF','classpath').strip(),
-								'uri':self._conf.get('TASKDEF','uri').strip()})
+								{'resource':self._conf.get('TASKDEF','resource'),
+								'classpath':self._conf.get('TASKDEF','classpath'),
+								'uri':self._conf.get('TASKDEF','uri')})
 
 		# targetノード作成(プロキシ設定)
 #		target1 = ET.SubElement(self.project,'target')
-#		target1.set('name',self._conf.get('DEPENDS','name').strip())
+#		target1.set('name',self._conf.get('DEPENDS','name'))
 
 		# setproxyノード作成
 #		setproxy = ET.SubElement(target1,'setproxy',
-#								{'proxyhost':self._conf.get('DEPENDSSETPROXY','proxyhost').strip(),
-#								'proxyport':self._conf.get('DEPENDSSETPROXY','proxyport').strip(),
-#								'proxyuser':self._conf.get('DEPENDSSETPROXY','proxyuser').strip(),
-#								'proxypassword':self._conf.get('DEPENDSSETPROXY','proxypassword').strip()})
+#								{'proxyhost':self._conf.get('DEPENDSSETPROXY','proxyhost'),
+#								'proxyport':self._conf.get('DEPENDSSETPROXY','proxyport'),
+#								'proxyuser':self._conf.get('DEPENDSSETPROXY','proxyuser'),
+#								'proxypassword':self._conf.get('DEPENDSSETPROXY','proxypassword')})
 
 		# targetノード作成(デプロイ)
 		target2 = ET.SubElement(self.project,'target',
-								{'name':self._conf.get('TARGET','name').strip()})
-#								{'name':self._conf.get('TARGET','name').strip(),
-#								'depends':self._conf.get('TARGET','depends').strip()})
+								{'name':self._conf.get('TARGET','name')})
+#								{'name':self._conf.get('TARGET','name'),
+#								'depends':self._conf.get('TARGET','depends')})
 
 		# sf:deployノード作成
 		deploy = ET.SubElement(target2,'sf:deploy',
-								{'username':self._conf.get('TARGETSF','username').strip(),
-								'password':self._conf.get('TARGETSF','password').strip(),
-								'serverurl':self._conf.get('TARGETSF','serverurl').strip(),
-								'deployRoot':self._conf.get('TARGETSF','deployRoot').strip(),
-								'maxPoll':self._conf.get('TARGETSF','maxPoll').strip(),
-								'testLevel':self._conf.get('TARGETSF','testLevel').strip(),
-								'checkOnly':self._conf.get('TARGETSF','checkOnly').strip()})
+								{'username':self._conf.get('TARGETSF','username'),
+								'password':self._conf.get('TARGETSF','password'),
+								'serverurl':self._conf.get('TARGETSF','serverurl'),
+								'deployRoot':self._conf.get('TARGETSF','deployRoot'),
+								'maxPoll':self._conf.get('TARGETSF','maxPoll'),
+								'testLevel':self._conf.get('TARGETSF','testLevel'),
+								'checkOnly':self._conf.get('TARGETSF','checkOnly')})
 
 		# テストクラスをファイルを読み込んで書き出す
 	#	with open(self._conf.get('TESTLIST','tests'), 'r') as f:
@@ -102,7 +102,7 @@ class Xml_Creator:
 
 		# Packageノード作成
 		self.package = ET.Element('Package')
-		self.package.set('xmlns',self._conf.get('PACKAGE','xmlns').strip())
+		self.package.set('xmlns',self._conf.get('PACKAGE','xmlns'))
 
 		# メタデータをファイルを読み込んで書き出す
 	#	with open(self._conf.get('PACKAGELIST','packs'), 'r') as pack:
@@ -125,7 +125,7 @@ class Xml_Creator:
 
 		# versionノードを作成
 		version = ET.SubElement(self.package,'version')
-		version.text = self._conf.get('PACKAGE','version').strip()
+		version.text = self._conf.get('PACKAGE','version')
 	
 	## 渡されたxmlを解析し、インデントを追加して出力する
 	def _output_xml(self,xml_name,file):
