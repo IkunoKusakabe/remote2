@@ -117,7 +117,7 @@ function main {
 
 		echo "[TARGET]"
 		echo "depends = proxy"
-		echo "name = ToTestDeployCheckOnly"
+		echo "name = ToTestDeployCheckOnly   "
 
 		echo "[TARGETSF]"
 		echo "checkonly = True"
