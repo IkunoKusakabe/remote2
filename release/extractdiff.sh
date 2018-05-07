@@ -117,13 +117,13 @@ function main {
 
 		echo "[TARGET]"
 		echo "depends = proxy"
-		echo "name = ToTestDeployCheckOnly   "
+		echo "name = ToTestDeployCheckOnly"
 
 		echo "[TARGETSF]"
 		echo "checkonly = True"
 		echo "deployroot = ${DEPLOY_ROOT}""codepkg"
-		echo "maxPoll = 2000"
-#		echo "maxPoll = "
+#		echo "maxPoll = 2000"
+		echo "maxPoll =     "
 		echo "password = ${PW}"
 		echo "serverurl = https://test.salesforce.com"
 		echo "testLevel = RunSpecifiedTests"
