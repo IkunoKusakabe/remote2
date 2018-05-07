@@ -34,7 +34,6 @@ class Xml_Creator:
 		for section in self._conf.sections():
 			print('SECTION : ' + section)
 			for key, val in dict(self._conf.items(section)).items():
-#				if not(val.strip()):
 				if not(val):
 					print(key + '\'s value is EMPTY!')
 					self._empty_value_flag = True
