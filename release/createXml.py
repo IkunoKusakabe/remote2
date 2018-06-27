@@ -121,7 +121,7 @@ class Xml_Creator:
 			members = ET.SubElement(types,'members')
 			members.text = self._conf.get('PACKAGE','members')
 			name = ET.SubElement(types,'name')
-			name.text = meta.strip()
+			name.text = meta
 
 		# versionノードを作成
 		version = ET.SubElement(self.package,'version')

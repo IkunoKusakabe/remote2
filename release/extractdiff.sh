@@ -58,10 +58,13 @@ function main {
 	#git apply test.patch --check
 	#git checkout ${BRANCH_NAME}
 
+	# 切り分けた時点の最新のマージコミットを取得
+	LATEST_MERGE=`git log --merges -1 --pretty=format:"%H"`
+
 	# developと、入力されたブランチの差分を取得して書き出し
 	# 0を返す「：」でファイルを初期化
 	: >${DIFFFILE}
-	for data in `git diff --name-status --oneline --reverse origin/${DEV}..origin/${BRANCH_NAME}`
+	for data in `git diff --name-status --oneline --reverse ${LATEST_MERGE}..origin/${BRANCH_NAME}`
 	do
 	    if test "${RENAME}" = "true";then
 	        RENAME='false'
