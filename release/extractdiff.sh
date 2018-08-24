@@ -51,17 +51,24 @@ Workflow
 function main {
 	# developをチェックアウト
 	git checkout -b ${DEV} origin/${DEV}
+	# developのマージコミットを取得
+	DEV_MERGES=`git log --merges --pretty=format:"%H"`
+
+	# 開発ブランチをチェックアウト
 	git checkout -b ${BRANCH_NAME} origin/${BRANCH_NAME}
-	# コンフリクト確認したかったけど、↓だとリネームによるdelete？に対応できないっぽい
-	#git format-patch origin/${DEV} --stdout>test.patch
-	#git checkout ${DEV}
-	#git apply test.patch --check
-	#git checkout ${BRANCH_NAME}
 
-	# 切り分けた時点の最新のマージコミットを取得
-	LATEST_MERGE=`git log --merges -1 --pretty=format:"%H"`
+	# 開発ブランチのマージコミットを順にdevelopと照合し、最初に合致したものを保持
+	for MERGE in `git log --merges --pretty=format:"%H"`
+	do
+		for DEV_MERGE in ${DEV_MERGES}
+		do
+			if test "${MERGE}" = "${DEV_MERGE}";then
+				LATEST_MERGE=${MERGE}
+				break 2
+		done
+	done
 
-	# developと、入力されたブランチの差分を取得して書き出し
+	# 開発ブランチを切った時点のdevelopと、入力されたブランチの差分を取得して書き出し
 	# 0を返す「：」でファイルを初期化
 	: >${DIFFFILE}
 	for data in `git diff --name-status --oneline --reverse ${LATEST_MERGE}..origin/${BRANCH_NAME}`
