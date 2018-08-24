@@ -65,6 +65,7 @@ function main {
 			if test "${MERGE}" = "${DEV_MERGE}";then
 				LATEST_MERGE=${MERGE}
 				break 2
+			fi
 		done
 	done
 
