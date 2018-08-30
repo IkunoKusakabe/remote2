@@ -17,28 +17,28 @@ function catch {
 #fi
 
 # 差分のベースとなるブランチ
-DEV=develop
+readonly DEV=develop
 
 # SFJenkinsユーザ
-USER=*user*
-PW=*PW*
+readonly USER=*user*
+readonly PW=*PW*
 
 # デプロイソース置き場
-DEPLOY_ROOT=${JENKINS_HOME}/workspace/salesforce_deploy/
+readonly DEPLOY_ROOT=${JENKINS_HOME}/workspace/salesforce_deploy/
 
 # 引数
 #BRANCH_NAME=$1
 #SANDBOX_NAME=$2
 # 変数定義
-PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
-DIFFFILE=diff.txt
-CODEPKG='codepkg'
+readonly PROCESS_WS=`echo ${WORKSPACE} | sed -e 's:\\\\:\/:g'`
+readonly DIFFFILE=diff.txt
+readonly CODEPKG='codepkg'
+readonly PYCONF=pyconf.ini
 EXTRACT='false'
 RENAME='false'
-PYCONF=pyconf.ini
 
 # パッケージ
-PACKAGES="ApexClass
+readonly PACKAGES="ApexClass
 ApexPage
 ApexTrigger
 ApexComponent
@@ -50,9 +50,9 @@ Workflow
 
 function main {
 	# developをチェックアウト
-	git checkout -b ${DEV} origin/${DEV}
+#	git checkout -b ${DEV} origin/${DEV}
 	# developのマージコミットを取得
-	DEV_MERGES=`git log --merges --pretty=format:"%H"`
+	DEV_MERGES=`git log --merges --pretty=format:"%H" origin/${DEV}`
 
 	# 開発ブランチをチェックアウト
 	git checkout -b ${BRANCH_NAME} origin/${BRANCH_NAME}
